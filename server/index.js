@@ -1,7 +1,11 @@
 const express = require('express');
+const cors = require('cors');
+
 
 const app = express();
 const port = 3000;
+
+app.use(cors())
 
 // Define endpoint to generate math equation
 app.get('/generate-equation', (req, res) => {
@@ -32,6 +36,8 @@ app.get('/generate-equation', (req, res) => {
 
     // Round answer to 2 decimal places
     answer = Math.round(answer * 100) / 100;
+
+    console.log(`This is the equation being sent ${num1} ${operation} ${num2}. This is the answer: ${answer}`);
 
     // Send response with generated equation and answer
     res.json({

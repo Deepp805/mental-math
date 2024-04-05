@@ -10,12 +10,12 @@ const MathChallenge: React.FC = () => {
   const [equation, setEquation] = useState<string>('');
   const [userAnswer, setUserAnswer] = useState<string>('');
   const [correctAnswer, setCorrectAnswer] = useState<number>(0);
+  const [counter, setCounter] = useState<number>(0);
 
   // Function to fetch a new math equation from the backend
   const fetchEquation = async () => {
     try {
       const response = await axios.get('/generate-equation');
-      console.log(response.data); // Log response data for debugging
       setEquation(response.data.equation);
       setCorrectAnswer(response.data.answer);
       setUserAnswer('');
@@ -38,13 +38,15 @@ const MathChallenge: React.FC = () => {
   useEffect(() => {
     const answer = parseFloat(userAnswer);
     if (answer === correctAnswer) {
-      fetchEquation();
+      setCounter(prevCounter => prevCounter + 1); // Increment counter
+      fetchEquation(); // Fetch new equation
     }
   }, [userAnswer, correctAnswer]);
 
   // Render component
   return (
     <div>
+      <div className="counter">Correct Answers: {counter}</div>
       <h1>Math Challenge</h1>
       <p>{equation}</p>
       <input

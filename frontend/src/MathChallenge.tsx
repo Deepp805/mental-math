@@ -1,52 +1,83 @@
-// Import required modules
 import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:3000';
 
-// Define MathChallenge component
 const MathChallenge: React.FC = () => {
-  // State variables
   const [equation, setEquation] = useState<string>('');
   const [userAnswer, setUserAnswer] = useState<string>('');
   const [correctAnswer, setCorrectAnswer] = useState<number>(0);
   const [counter, setCounter] = useState<number>(0);
+  const [timer, setTimer] = useState<number>(30);
 
-  // Function to fetch a new math equation from the backend
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const timerFromQueryParam = Number(queryParams.get('timer'));
+
+  const navigate = useNavigate();
+
   const fetchEquation = async () => {
+    console.log('Fetching equation...');
     try {
       const response = await axios.get('/generate-equation');
       setEquation(response.data.equation);
       setCorrectAnswer(response.data.answer);
-      setUserAnswer('');
+      console.log('Equation fetched:', response.data.equation);
     } catch (error) {
       console.error('Error fetching equation:', error);
     }
   };
 
-  // Effect hook to fetch initial equation on component mount
   useEffect(() => {
+    console.log('Component mounted');
     fetchEquation();
-  }, []);
+    setTimer(timerFromQueryParam);
+  }, [timerFromQueryParam]);
 
-  // Function to handle user input change
+  useEffect(() => {
+    if (timer > 0) {
+      console.log('Timer:', timer);
+      const timerId = setTimeout(() => {
+        console.log('Timer expired!');
+        setTimer(prevTimer => {
+          console.log('Previous timer value:', prevTimer);
+          return prevTimer - 1;
+        });
+      }, 1000);
+  
+      return () => clearTimeout(timerId);
+    } else {
+      console.log('Time\'s up, navigating to results page...');
+      navigate('/results');
+    }
+  }, [timer, navigate]);
+  
+  
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserAnswer(event.target.value);
   };
 
-  // Function to check if the user's answer is correct
+  console.log('Timer:', timer);
+
+  const restartTest = () => {
+    navigate(`/test?timer=${timerFromQueryParam}`);
+  };
+
   useEffect(() => {
     const answer = parseFloat(userAnswer);
     if (answer === correctAnswer) {
-      setCounter(prevCounter => prevCounter + 1); // Increment counter
-      fetchEquation(); // Fetch new equation
+      console.log('Correct answer!');
+      setCounter(prevCounter => prevCounter + 1);
+      fetchEquation();
     }
   }, [userAnswer, correctAnswer]);
 
-  // Render component
   return (
     <div>
       <div className="counter">Correct Answers: {counter}</div>
+      <div className="timer">Time Left: {timer} seconds</div>
       <h1>Math Challenge</h1>
       <p>{equation}</p>
       <input

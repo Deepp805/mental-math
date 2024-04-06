@@ -19,6 +19,4 @@ export default App
 
 
 // Current issues to work on:
-// - Add proper score to ResultsPage
 // - Proper questions that are doable
-// - Restarting test exits immediately

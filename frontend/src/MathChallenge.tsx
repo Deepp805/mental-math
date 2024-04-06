@@ -49,7 +49,7 @@ const MathChallenge: React.FC = () => {
       return () => clearTimeout(timerId);
     } else {
       console.log('Time\'s up, navigating to results page...');
-      navigate(`/results?score=${counter}`);
+      navigate(`/results?score=${counter}&timer=${timerFromQueryParam}`);
     }
   }, [timer, navigate]);
   

@@ -20,5 +20,5 @@ export default App
 
 // Current issues to work on:
 // - Add proper score to ResultsPage
-// - Answer box doesn't clear after correct answer
-// Restarting test exits immediately
+// - Proper questions that are doable
+// - Restarting test exits immediately

@@ -71,6 +71,7 @@ const MathChallenge: React.FC = () => {
       console.log('Correct answer!');
       setCounter(prevCounter => prevCounter + 1);
       fetchEquation();
+      setUserAnswer('');
     }
   }, [userAnswer, correctAnswer]);
 

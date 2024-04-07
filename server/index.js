@@ -9,9 +9,11 @@ app.use(cors())
 
 // Define endpoint to generate math equation
 app.get('/generate-equation', (req, res) => {
-    // Generate random numbers between 1 and 100
-    const num1 = Math.floor(Math.random() * 100) + 1;
-    const num2 = Math.floor(Math.random() * 100) + 1;
+    // let num1 = Math.floor(Math.random() * 100) + 1;
+    // let num2 = Math.floor(Math.random() * 100) + 1;
+    let r;
+    let t1;
+    let t2;
 
     // Generate random math operation (+, -, *, /)
     const operations = ['+', '-', '*', '/'];
@@ -21,16 +23,44 @@ app.get('/generate-equation', (req, res) => {
     let answer;
     switch (operation) {
         case '+':
+            r = Math.random();
+            if (r > 0.5) {
+                num1 = Math.floor(Math.random() * 100) + 1;
+                num2 = Math.floor(Math.random() * 100) + 1;
+            }
+            else {
+                num1 = Math.round(Math.random() * 100) /100
+                num2 = Math.round(Math.random() * 100) /100
+            }
             answer = num1 + num2;
             break;
         case '-':
+            r = Math.random();
+            if (r > 0.5) {
+                num1 = Math.floor(Math.random() * 100) + 1;
+                num2 = Math.floor(Math.random() * 100) + 1;
+            }
+            else {
+                num1 = Math.round(Math.random() * 100) /100
+                num2 = Math.round(Math.random() * 100) /100
+            }
+            t1 = Math.max(num1, num2)
+            t2 = Math.min(num1, num2)
+            num1 = t1
+            num2 = t2
             answer = num1 - num2;
             break;
         case '*':
+            num1 = Math.floor(Math.random() * 100) + 1;
+            num2 = Math.floor(Math.random() * 12) + 1;
             answer = num1 * num2;
             break;
         case '/':
-            answer = num1 / num2;
+            num1 = Math.floor(Math.random() * 100) + 1;
+            num2 = Math.floor(Math.random() * 12) + 1;
+            let times = num1 * num2
+            answer = num1;
+            num1 = times
             break;
     }
 

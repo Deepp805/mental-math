@@ -19,7 +19,6 @@ export default App
 
 
 // Current issues to work on:
-// - Proper questions that are doable
 // - Integrate Google Analytics to see how many tests have been done
 // - Add user login
 // - Store user test results into db

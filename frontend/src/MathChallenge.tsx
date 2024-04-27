@@ -79,7 +79,7 @@ const MathChallenge: React.FC = () => {
     <div>
       <div className="counter">Correct Answers: {counter}</div>
       <div className="timer">Time Left: {timer} seconds</div>
-      <h1>Math Challenge</h1>
+      <h1 className="text-5xl">Math Challenge</h1>
       <p>{equation}</p>
       <input
         type="number"

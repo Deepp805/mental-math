@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ClerkProvider, SignOutButton } from '@clerk/clerk-react';
 
 const ConfigurationPage: React.FC = () => {
   const [timerDuration, setTimerDuration] = useState<number>(60);
@@ -15,6 +16,7 @@ const ConfigurationPage: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center p-5">
+      <SignOutButton />
       <h1 className="text-3xl font-semibold mb-4">Configuration Page</h1>
       <div className="mb-3 w-1/2">
         <label htmlFor="timerDuration" className="block text-sm font-medium text-gray-700">Timer Duration (seconds):</label>

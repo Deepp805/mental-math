@@ -1,1 +1,24 @@
-GET http://localhost:3000/generate-equation
+# POST http://localhost:3000/gameOver
+# Content-Type: application/json
+
+# {
+#   "userId": "user_2fhs3RLpFC28pCJT6lPe6e2jyp1",
+#   "score": 42
+# }
+
+
+# POST http://localhost:3000/register
+# Content-Type: application/json
+
+# {
+#   "id": "user_2fhs3RLpFC28pCJT6lPe6e2jyp1",
+#   "email": "pateld2@bxscience.edu"
+# }
+
+
+POST http://localhost:3000/scores
+Content-Type: application/json
+
+{
+  "userId": "user_2fhas3RLpFC28pCJT6lPe6e2jyp1"
+}

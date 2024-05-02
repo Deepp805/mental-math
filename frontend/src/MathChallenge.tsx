@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useUser } from '@clerk/clerk-react';
 
@@ -74,15 +74,16 @@ const MathChallenge: React.FC = () => {
 
   return (
     <div>
-      <div className="counter">Correct Answers: {counter}</div>
+      <Link className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded left-0 bottom-7" to="/">Configuration Page</Link>
+      <div className="counter bg-white">Correct Answers: {counter}</div>
       <div className="timer">Time Left: {timer} seconds</div>
       <h1 className="text-5xl">Math Challenge</h1>
       <p>{equation}</p>
-      <input
+      <input className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 w-32"
         type="number"
         value={userAnswer}
         onChange={handleInputChange}
-        placeholder="Enter your answer"
+        placeholder="Answer"
       />
     </div>
   );

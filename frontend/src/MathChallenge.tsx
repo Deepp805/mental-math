@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useUser } from '@clerk/clerk-react';
 
 axios.defaults.baseURL = 'http://localhost:3000';
 
@@ -16,39 +17,37 @@ const MathChallenge: React.FC = () => {
   const timerFromQueryParam = Number(queryParams.get('timer'));
 
   const navigate = useNavigate();
+  const {user} = useUser();
 
   const fetchEquation = async () => {
-    console.log('Fetching equation...');
     try {
       const response = await axios.get('/generate-equation');
       setEquation(response.data.equation);
       setCorrectAnswer(response.data.answer);
-      console.log('Equation fetched:', response.data.equation);
     } catch (error) {
       console.error('Error fetching equation:', error);
     }
   };
 
   useEffect(() => {
-    console.log('Component mounted');
     fetchEquation();
     setTimer(timerFromQueryParam);
   }, [timerFromQueryParam]);
 
   useEffect(() => {
     if (timer > 0) {
-      console.log('Timer:', timer);
       const timerId = setTimeout(() => {
-        console.log('Timer expired!');
         setTimer(prevTimer => {
-          console.log('Previous timer value:', prevTimer);
           return prevTimer - 1;
         });
       }, 1000);
   
       return () => clearTimeout(timerId);
     } else {
-      console.log('Time\'s up, navigating to results page...');
+      axios.post('/gameOver', {
+        userId: user?.id,
+        score: counter
+      })
       navigate(`/results?score=${counter}&timer=${timerFromQueryParam}`);
     }
   }, [timer, navigate]);
@@ -59,7 +58,6 @@ const MathChallenge: React.FC = () => {
     setUserAnswer(event.target.value);
   };
 
-  console.log('Timer:', timer);
 
   const restartTest = () => {
     navigate(`/test?timer=${timerFromQueryParam}`);
@@ -68,7 +66,6 @@ const MathChallenge: React.FC = () => {
   useEffect(() => {
     const answer = parseFloat(userAnswer);
     if (answer === correctAnswer) {
-      console.log('Correct answer!');
       setCounter(prevCounter => prevCounter + 1);
       fetchEquation();
       setUserAnswer('');

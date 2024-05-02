@@ -50,7 +50,6 @@ export default App;
 
 // Current issues to work on:
 // - Integrate Google Analytics to see how many tests have been done
-// - Add user login [done]
 // - Use tailwindcss to style the app and also style the Clerk components
 // - Store user test results into db
 // - Visualize historic test results in profile page

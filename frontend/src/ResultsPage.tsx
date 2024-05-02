@@ -10,6 +10,7 @@ const ResultsPage: React.FC = () => {
       <p>Your score: {queryParams.get('score')}</p>
       <Link to={res}>Restart Test</Link>
       <Link to="/">Go to Configuration Page</Link>
+      <Link to="/scores">Go to Scores Page</Link>
     </div>
   );
 };

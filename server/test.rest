@@ -2,8 +2,8 @@
 # Content-Type: application/json
 
 # {
-#   "userId": "user_2fhs3RLpFC28pCJT6lPe6e2jyp1",
-#   "score": 42
+#   "userId": "user_2ftUAudylKkitH5CeTy0hjpYtiq",
+#   "score": 444
 # }
 
 
@@ -20,5 +20,5 @@ POST http://localhost:3000/scores
 Content-Type: application/json
 
 {
-  "userId": "user_2fhas3RLpFC28pCJT6lPe6e2jyp1"
+  "userId": "user_2ftUAudylKkitH5CeTy0hjpYtiq"
 }

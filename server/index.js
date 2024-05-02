@@ -24,6 +24,7 @@ async function addScore(userId, score) {
 }
 
 app.post('/gameOver', async (req, res) => {
+    console.log("The game is over and the /gameOver endpoint was hit");
     const { userId, score } = req.body;
     try {
       const result = await prisma.score.create({
@@ -33,6 +34,7 @@ app.post('/gameOver', async (req, res) => {
         },
       });
       res.json(result);
+      console.log("The score was successfully added to the db");
     } catch (error) {
       console.error('Failed to add score:', error);
       res.status(500).json({ error: "Failed to add score" });
@@ -41,16 +43,18 @@ app.post('/gameOver', async (req, res) => {
   
 
 // Function to get scores by user
-async function getScoresByUser(userId) {
+async function getScoresByUser(uid) {
+  console.log("The getScoresByUser function was called with uid:", uid);
   const scores = await prisma.score.findMany({
     where: {
-      userId: userId,
+      userId: uid,
     },
   });
   return scores;
 }
 
 app.post('/scores', (req, res) => {
+  console.log("The /scores endpoint was hit and we are now about to try to get the scores");
     const { userId } = req.body;
     getScoresByUser(userId).then(scores => {
         res.json(scores);
@@ -62,18 +66,30 @@ app.post('/scores', (req, res) => {
 
 
 app.post('/register', async (req, res) => {
-    const { id, email } = req.body;
-    try {
-      const newUser = await prisma.user.create({
-        data: {
-            id,
-            email
-        },
-      });
-      res.json(newUser);
-    } catch (error) {
-      console.error('Registration failed:', error);
-      res.status(500).json({ error: "Failed to register user" });
+    const { user_id, user_email } = req.body;
+    const userExists = await prisma.user.findUnique({
+      where: {
+        id: user_id
+      },
+      select: {
+        id: true
+      }
+    })
+    if (!userExists) {
+      try {
+        const result = await prisma.user.create({
+          data: {
+            id: user_id,
+            email: user_email,
+          },
+        });
+      } catch (error) {
+        console.error('Failed to register user:', error);
+        res.status(500).json({ error: "Failed to register user" });
+      }
+    }
+    else {
+      console.log("");
     }
   });
   
@@ -139,7 +155,6 @@ app.get('/generate-equation', (req, res) => {
     // Round answer to 2 decimal places
     answer = Math.round(answer * 100) / 100;
 
-    console.log(`This is the equation being sent ${num1} ${operation} ${num2}. This is the answer: ${answer}`);
 
     // Send response with generated equation and answer
     res.json({

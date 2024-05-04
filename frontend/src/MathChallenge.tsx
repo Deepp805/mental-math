@@ -60,9 +60,9 @@ const MathChallenge: React.FC = () => {
   };
 
 
-  const restartTest = () => {
-    navigate(`/test?timer=${timerFromQueryParam}`);
-  };
+  // const restartTest = () => {
+  //   navigate(`/test?timer=${timerFromQueryParam}`);
+  // };
 
   useEffect(() => {
     const answer = parseFloat(userAnswer);

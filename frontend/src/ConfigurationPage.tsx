@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ClerkProvider, SignOutButton } from '@clerk/clerk-react';
+import { SignOutButton } from '@clerk/clerk-react';
 import { Link } from 'react-router-dom';
 
 const ConfigurationPage: React.FC = () => {

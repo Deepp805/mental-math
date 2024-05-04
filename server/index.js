@@ -25,12 +25,13 @@ async function addScore(userId, score) {
 
 app.post('/gameOver', async (req, res) => {
     console.log("The game is over and the /gameOver endpoint was hit");
-    const { userId, score } = req.body;
+    const { userId, score, length } = req.body;
     try {
       const result = await prisma.score.create({
         data: {
           userId,
-          score
+          score,
+          length,
         },
       });
       res.json(result);

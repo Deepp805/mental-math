@@ -51,6 +51,6 @@ export default App;
 // Current issues to work on:
 // - Integrate Google Analytics to see how many tests have been done
 // - Use tailwindcss to style the app and also style the Clerk components
-// - Modify the Score table to show the type of the test as well, but also consider the type of the test (add/subtract only or everything)
+// - Consider the type of the test (add/subtract only or everything) in the DB
 // - Visualize historic test results in profile page
 // - A cool thing would be a public leaderboard for the time controls

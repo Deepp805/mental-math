@@ -46,7 +46,8 @@ const MathChallenge: React.FC = () => {
     } else {
       axios.post('/gameOver', {
         userId: user?.id,
-        score: counter
+        score: counter,
+        length: timerFromQueryParam
       })
       navigate(`/results?score=${counter}&timer=${timerFromQueryParam}`);
     }

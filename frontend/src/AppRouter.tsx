@@ -10,7 +10,7 @@ const AppRouter: React.FC = () => {
   const { user } = useUser();
   const userId = user?.id.toString() || '';
   return (
-    <Router basename="/mental-math">
+    <Router >
       <Routes>
         <Route path="/" element={<ConfigurationPage />} />
         <Route path="/test" element={<MathChallenge />} />

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:3000';
+const baseURL = 'https://mental-math-jieg.onrender.com';
 
 const getScores = async (userId: string): Promise<any> => {  // Temporary use of 'any' to debug
     try {

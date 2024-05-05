@@ -4,7 +4,7 @@ import AppRouter from './AppRouter';
 import { SignedIn, SignedOut, SignInButton, useUser } from "@clerk/clerk-react";
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'https://mental-math-jieg.onrender.com';
 
 function App() {
   const { isSignedIn, user } = useUser();

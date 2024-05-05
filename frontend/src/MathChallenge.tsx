@@ -3,7 +3,7 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useUser } from '@clerk/clerk-react';
 
-axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'https://mental-math-jieg.onrender.com';
 
 const MathChallenge: React.FC = () => {
   const [equation, setEquation] = useState<string>('');

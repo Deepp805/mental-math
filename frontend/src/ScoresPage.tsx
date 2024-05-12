@@ -6,6 +6,7 @@ import { getScores } from './api';
 interface Score {
     id: number;
     score: number;
+    length: number;
     userId: string;
     createdAt: string;
 }
@@ -39,7 +40,7 @@ const ScoresPage: React.FC<{ uid: string }> = ({ uid }) => {
             {scores.length > 0 ? (
                 <ul>
                     {scores.map((score) => (
-                        <li key={score.id}>Score: {score.score}</li>
+                        <li key={score.id}>Score: {score.score} Duration: {score.length}</li>
                     ))}
                 </ul>
             ) : (

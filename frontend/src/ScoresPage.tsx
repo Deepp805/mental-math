@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getScores } from './api';
+import { format } from 'date-fns';
 
 import {
     Table,
@@ -64,7 +65,7 @@ const ScoresPage: React.FC<{ uid: string }> = ({ uid }) => {
                     {scores.length > 0 ? (
                         scores.map((score) => (
                             <Tr key={score.id}>
-                                <Td>{score.createdAt}</Td>
+                                <Td>{format(new Date(score.createdAt), 'MMMM dd, yyyy')}</Td>
                                 <Td>{score.score}</Td>
                                 <Td>{score.length}</Td>
                             </Tr>

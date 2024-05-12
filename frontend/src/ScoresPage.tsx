@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getScores } from './api';
 import { format } from 'date-fns';
+import {Button} from '@chakra-ui/react';
 
 import {
     Table,
@@ -25,6 +26,7 @@ interface Score {
 const ScoresPage: React.FC<{ uid: string }> = ({ uid }) => {
     const [scores, setScores] = useState<Score[]>([]);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setLoading(true);
@@ -47,7 +49,9 @@ const ScoresPage: React.FC<{ uid: string }> = ({ uid }) => {
     
     return (
         <div>
-            <Link to="/">Go to Configuration Page</Link>
+            <Button colorScheme="blue" onClick={() => navigate('/')}>
+                Go to Configuration Page
+            </Button>
             <TableContainer>
                 <Table variant='striped' colorScheme='gray'>
                     <Thead>

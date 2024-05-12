@@ -13,8 +13,6 @@ function App() {
   useEffect(() => {
     if (isSignedIn && user && !isRegistering) {
       setIsRegistering(true); // Set loading state to prevent multiple requests
-      console.log("This is the user Id:" + user.id);
-      console.log("This is their email address: " + user.primaryEmailAddress?.toString());
 
       axios.post('/register', {
         user_id: user.id,

@@ -2,6 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getScores } from './api';
 
+import {
+    Table,
+    Thead,
+    Tbody,
+    Tfoot,
+    Tr,
+    Th,
+    Td,
+    TableCaption,
+    TableContainer,
+  } from '@chakra-ui/react'
+
 // Define the type for the score object
 interface Score {
     id: number;
@@ -29,24 +41,44 @@ const ScoresPage: React.FC<{ uid: string }> = ({ uid }) => {
                 setLoading(false);
             });
     }, [uid]);
-
+    
     if (loading) {
         return <div>Loading...</div>;
     }
-
+    
     return (
         <div>
-            {/* <h1>Scores for {uid}</h1> */}
-            {scores.length > 0 ? (
-                <ul>
-                    {scores.map((score) => (
-                        <li key={score.id}>Score: {score.score} Duration: {score.length}</li>
-                    ))}
-                </ul>
-            ) : (
-                <p>No scores available.</p>
-            )}
             <Link to="/">Go to Configuration Page</Link>
+            <TableContainer>
+                <Table variant='striped' colorScheme='gray'>
+                    <Thead>
+                        <Tr>
+                            <Th>Date</Th>
+                            <Th>Score</Th>
+                            <Th>Test Length</Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+
+    
+                    {scores.length > 0 ? (
+                        scores.map((score) => (
+                            <Tr key={score.id}>
+                                <Td>{score.createdAt}</Td>
+                                <Td>{score.score}</Td>
+                                <Td>{score.length}</Td>
+                            </Tr>
+                        ))
+                    ) : (
+                            <Tr>
+                                <Td colSpan={3}>No scores available.</Td>
+                            </Tr>
+                        )}
+
+                    </Tbody>
+                </Table>
+            </TableContainer>
+            
         </div>
     );
 };

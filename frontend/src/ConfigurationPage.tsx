@@ -12,7 +12,7 @@ const ConfigurationPage: React.FC = () => {
   };
 
   const startTest = () => {
-    navigate(`/test?timer=${timerDuration}`);
+    navigate('/test', { state: { timer: timerDuration } });
   };
 
   return (

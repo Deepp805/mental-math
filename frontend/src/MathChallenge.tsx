@@ -13,8 +13,7 @@ const MathChallenge: React.FC = () => {
   const [timer, setTimer] = useState<number>(30);
 
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const timerFromQueryParam = Number(queryParams.get('timer'));
+  const timerFromState = location.state?.timer || 30;  // Default to 30 if no timer is provided
 
   const navigate = useNavigate();
   const {user} = useUser();
@@ -31,8 +30,8 @@ const MathChallenge: React.FC = () => {
 
   useEffect(() => {
     fetchEquation();
-    setTimer(timerFromQueryParam);
-  }, [timerFromQueryParam]);
+    setTimer(timerFromState);
+  }, [timerFromState]);
 
   useEffect(() => {
     if (timer > 0) {
@@ -47,9 +46,9 @@ const MathChallenge: React.FC = () => {
       axios.post('/gameOver', {
         userId: user?.id,
         score: counter,
-        length: timerFromQueryParam
+        length: timerFromState
       })
-      navigate(`/results?score=${counter}&timer=${timerFromQueryParam}`);
+      navigate(`/results?score=${counter}&timer=${timerFromState}`);
     }
   }, [timer, navigate]);
   

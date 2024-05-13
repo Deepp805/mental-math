@@ -48,6 +48,13 @@ const MathChallenge: React.FC = () => {
           length: timerFromState
         })
       }
+      else {
+        axios.post('/gameOver', {
+          userId: 'anonymous',
+          score: counter,
+          length: timerFromState
+        })
+      }
       navigate(`/results?score=${counter}&timer=${timerFromState}`);
     }
   }, [timer, navigate, user?.id, counter, timerFromState]);

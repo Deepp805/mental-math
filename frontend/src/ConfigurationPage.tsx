@@ -16,7 +16,7 @@ const ConfigurationPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="flex justify-end items-center space-x-4 p-4">
   <Link to="/scores" className="text-indigo-600 hover:text-indigo-800 transition duration-150 ease-in-out">
     Go to Scores Page

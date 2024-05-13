@@ -63,7 +63,16 @@ const SignInPage: React.FC = () => {
       <Box className="space-y-4 p-8 bg-white shadow-md rounded-lg">
         <Heading as="h1" size="xl">Welcome to Quick Maths</Heading>
         <Text fontSize="md" textAlign="center">Sign in to start practicing your mental math skills!</Text>
-        <SignInButton />
+
+        <div className="flex justify-center items-center">
+      <SignInButton>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Sign In
+        </button>
+      </SignInButton>
+    </div>
+
+        
         <Heading as="h2" size="lg" textAlign="center" mt="8">🏆 Leaderboard 🏆</Heading>
         {renderScoresTable(scores30, 30)}
         {renderScoresTable(scores60, 60)}

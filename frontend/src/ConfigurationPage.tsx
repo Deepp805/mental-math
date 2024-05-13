@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SignOutButton } from '@clerk/clerk-react';
-import { Link } from 'react-router-dom';
+import { Button } from '@chakra-ui/react';
 
 const ConfigurationPage: React.FC = () => {
   const [timerDuration, setTimerDuration] = useState<number>(60);
@@ -18,13 +18,14 @@ const ConfigurationPage: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="flex justify-end items-center space-x-4 p-4">
-  <Link to="/scores" className="text-indigo-600 hover:text-indigo-800 transition duration-150 ease-in-out">
-    Go to Scores Page
-  </Link>
+    <Button colorScheme="blue" onClick={() => navigate('/scores')}>
+      Go to Scores Page
+    </Button>
+
   <SignOutButton>
-    <button className="text-white bg-red-500 hover:bg-red-600 focus:ring-red-500 focus:ring-offset-red-200 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg px-4 py-2">
+    <Button colorScheme="blue">
       Sign Out
-    </button>
+    </Button>
   </SignOutButton>
 </div>
 

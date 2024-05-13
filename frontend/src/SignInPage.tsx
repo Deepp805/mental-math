@@ -32,25 +32,30 @@ const SignInPage: React.FC = () => {
     fetchScores();
   }, []);
 
-  const renderScoresTable = (scores: Score[], duration: number) => (
-    <TableContainer>
-      <Table variant="striped" colorScheme="gray" size="sm">
-        <Thead>
-          <Tr>
-            <Th>Date</Th>
-            <Th>Score</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {scores.map((score, index) => (
-            <Tr key={score.id}>
-              <Td>{format(new Date(score.createdAt), 'MMMM dd, yyyy p')}</Td>
-              <Td>{score.score}</Td>
+  const renderScoresTable = (scores: Score[], duration: number): JSX.Element => (
+    <div>
+      <Heading as="h3" size="md" textAlign="center" my={4}>
+        {`${duration} Seconds`}
+      </Heading>
+      <TableContainer>
+        <Table variant="striped" colorScheme="gray" size="sm">
+          <Thead>
+            <Tr>
+              <Th>Date and Time</Th>
+              <Th>Score</Th>
             </Tr>
-          ))}
-        </Tbody>
-      </Table>
-    </TableContainer>
+          </Thead>
+          <Tbody>
+            {scores.map((score) => (
+              <Tr key={score.id}>
+                <Td>{format(new Date(score.createdAt), 'MMMM dd, yyyy p')}</Td>
+                <Td>{score.score}</Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </div>
   );
 
   return (
@@ -59,7 +64,7 @@ const SignInPage: React.FC = () => {
         <Heading as="h1" size="xl">Welcome to Quick Maths</Heading>
         <Text fontSize="md" textAlign="center">Sign in to start practicing your mental math skills!</Text>
         <SignInButton />
-        <Heading as="h2" size="lg" textAlign="center" mt="8">Leaderboard</Heading>
+        <Heading as="h2" size="lg" textAlign="center" mt="8">🏆 Leaderboard 🏆</Heading>
         {renderScoresTable(scores30, 30)}
         {renderScoresTable(scores60, 60)}
         {renderScoresTable(scores90, 90)}

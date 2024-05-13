@@ -16,9 +16,12 @@
 # }
 
 
-POST http://localhost:3000/scores
-Content-Type: application/json
+# POST http://localhost:3000/scores
+# Content-Type: application/json
 
-{
-  "userId": "user_2ftUAudylKkitH5CeTy0hjpYtiq"
-}
+# {
+#   "userId": "user_2ftUAudylKkitH5CeTy0hjpYtiq"
+# }
+
+GET http://localhost:3000/top-scores?length=90
+Content-Type: application/json

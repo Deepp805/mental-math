@@ -164,6 +164,36 @@ app.get('/generate-equation', (req, res) => {
     });
 });
 
+app.get('/top-scores', async (req, res) => {
+  const { length } = req.query;
+
+  if (!length) {
+      return res.status(400).json({ error: 'Length parameter is required' });
+  }
+
+  const validLengths = [30, 60, 90];
+  if (!validLengths.includes(Number(length))) {
+      return res.status(400).json({ error: 'Invalid length provided. Valid lengths are 30, 60, or 90.' });
+  }
+
+  try {
+      const topScores = await prisma.score.findMany({
+          where: {
+              length: Number(length)
+          },
+          orderBy: {
+              score: 'desc'
+          },
+          take: 5
+      });
+      res.json(topScores);
+  } catch (error) {
+      console.error('Failed to retrieve top scores:', error);
+      res.status(500).json({ error: 'Failed to retrieve top scores' });
+  }
+});
+
+
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

@@ -3,6 +3,8 @@ import { SignInButton } from '@clerk/clerk-react';
 import { Box, Heading, Text, Table, Thead, Tbody, Tr, Th, Td, TableContainer } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import { fetchTopScores } from './api';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@chakra-ui/react';
 
 
 interface Score {
@@ -15,6 +17,7 @@ const SignInPage: React.FC = () => {
   const [scores30, setScores30] = useState<Score[]>([]);
   const [scores60, setScores60] = useState<Score[]>([]);
   const [scores90, setScores90] = useState<Score[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchScores = async () => {
@@ -65,6 +68,11 @@ const SignInPage: React.FC = () => {
         <Text fontSize="md" textAlign="center">Sign in to start practicing your mental math skills!</Text>
 
         <div className="flex justify-center items-center">
+      
+        <Button colorScheme="green" onClick={() => navigate('/configuration')}>
+          Guest Mode
+        </Button>
+      
       <SignInButton>
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Sign In

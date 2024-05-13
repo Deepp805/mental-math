@@ -4,6 +4,10 @@ import AppRouter from './AppRouter';
 import { SignedIn, SignedOut, useUser } from "@clerk/clerk-react";
 import axios from 'axios';
 import SignInPage from './SignInPage';
+import ConfigurationPage from './ConfigurationPage';
+import MathChallenge from './MathChallenge';
+import ResultsPage from './ResultsPage';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 axios.defaults.baseURL = 'https://mental-math-jieg.onrender.com';
 
@@ -37,7 +41,15 @@ function App() {
         <AppRouter />
       </SignedIn>
       <SignedOut>
-        <SignInPage />
+        <Router>
+          <Routes >
+            <Route path="/" element={<SignInPage />} />
+            <Route path="/configuration" element={<ConfigurationPage />} />
+            <Route path="/test" element={<MathChallenge />} />
+            <Route path="/results" element={<ResultsPage />} />
+            {/* <SignInPage /> */}
+          </Routes>
+        </Router>
       </SignedOut>
     </>
   );

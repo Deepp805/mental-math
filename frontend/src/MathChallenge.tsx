@@ -16,7 +16,7 @@ const MathChallenge: React.FC = () => {
   const timerFromState = location.state?.timer || 30;
 
   const navigate = useNavigate();
-  const { user } = useUser();
+  const { user, isSignedIn } = useUser();
 
   const fetchEquation = async () => {
     try {
@@ -41,11 +41,13 @@ const MathChallenge: React.FC = () => {
   
       return () => clearTimeout(timerId);
     } else {
-      axios.post('/gameOver', {
-        userId: user?.id,
-        score: counter,
-        length: timerFromState
-      })
+      if (isSignedIn) {
+        axios.post('/gameOver', {
+          userId: user?.id,
+          score: counter,
+          length: timerFromState
+        })
+      }
       navigate(`/results?score=${counter}&timer=${timerFromState}`);
     }
   }, [timer, navigate, user?.id, counter, timerFromState]);

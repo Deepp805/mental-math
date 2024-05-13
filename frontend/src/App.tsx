@@ -3,6 +3,7 @@ import './App.css';
 import AppRouter from './AppRouter';
 import { SignedIn, SignedOut, SignInButton, useUser } from "@clerk/clerk-react";
 import axios from 'axios';
+import SignInPage from './SignInPage';
 
 axios.defaults.baseURL = 'https://mental-math-jieg.onrender.com';
 
@@ -36,7 +37,7 @@ function App() {
         <AppRouter />
       </SignedIn>
       <SignedOut>
-        <SignInButton />
+        <SignInPage />
       </SignedOut>
     </>
   );

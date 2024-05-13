@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import AppRouter from './AppRouter';
-import { SignedIn, SignedOut, SignInButton, useUser } from "@clerk/clerk-react";
+import { SignedIn, SignedOut, useUser } from "@clerk/clerk-react";
 import axios from 'axios';
 import SignInPage from './SignInPage';
 

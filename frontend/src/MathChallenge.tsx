@@ -79,7 +79,7 @@ const MathChallenge: React.FC = () => {
       <div className="timer">Time Left: {timer} seconds</div>
       <h1 className="text-5xl">Math Challenge</h1>
       <p>{equation}</p>
-      <input className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 w-32"
+      <input className="bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 w-32"
         type="number"
         value={userAnswer}
         onChange={handleInputChange}

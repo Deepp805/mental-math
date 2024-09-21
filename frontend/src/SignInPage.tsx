@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { SignInButton } from '@clerk/clerk-react';
-import { Box, Heading, Text, Table, Thead, Tbody, Tr, Th, Td, TableContainer } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
+import { Brain, Trophy, ArrowRight, Calculator, Clock } from 'lucide-react';
+import { Button } from "./components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./components/ui/table";
 import { fetchTopScores } from './api';
-import { useNavigate } from 'react-router-dom';
-import { Button } from '@chakra-ui/react';
-
+import { SignInButton, SignUpButton } from '@clerk/clerk-react';
 
 interface Score {
-    id: number;
-    score: number;
-    createdAt: Date;
+  id: number;
+  score: number;
+  createdAt: Date;
 }
 
-const SignInPage: React.FC = () => {
+export default function LandingPage() {
   const [scores30, setScores30] = useState<Score[]>([]);
   const [scores60, setScores60] = useState<Score[]>([]);
   const [scores90, setScores90] = useState<Score[]>([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchScores = async () => {
@@ -35,59 +35,94 @@ const SignInPage: React.FC = () => {
     fetchScores();
   }, []);
 
-  const renderScoresTable = (scores: Score[], duration: number): JSX.Element => (
-    <div>
-      <Heading as="h3" size="md" textAlign="center" my={4}>
-        {`${duration} Seconds`}
-      </Heading>
-      <TableContainer>
-        <Table variant="striped" colorScheme="gray" size="sm">
-          <Thead>
-            <Tr>
-              <Th>Date and Time</Th>
-              <Th>Score</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
+  const renderScoresTable = (scores: Score[], duration: number) => (
+    <Card className="w-full bg-white/10 backdrop-blur-lg">
+      <CardHeader>
+        <CardTitle className="flex items-center justify-center text-xl font-bold">
+          <Clock className="mr-2" />
+          {duration} Seconds
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="text-white">Date and Time</TableHead>
+              <TableHead className="text-white">Score</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {scores.map((score) => (
-              <Tr key={score.id}>
-                <Td>{format(new Date(score.createdAt), 'MMMM dd, yyyy p')}</Td>
-                <Td>{score.score}</Td>
-              </Tr>
+              <TableRow key={score.id}>
+                <TableCell className="text-white">{format(new Date(score.createdAt), 'MMMM dd, yyyy p')}</TableCell>
+                <TableCell className="text-white font-bold">{score.score}</TableCell>
+              </TableRow>
             ))}
-          </Tbody>
+          </TableBody>
         </Table>
-      </TableContainer>
-    </div>
+      </CardContent>
+    </Card>
   );
 
   return (
-    <div className="flex flex-col items-center justify-center bg-gradient-to-r from-teal-300 to-blue-500 min-h-screen w-screen">
-      <Box className="space-y-4 p-8 bg-white shadow-md rounded-lg">
-        <Heading as="h1" size="xl">Welcome to Quick Maths</Heading>
-        <Text fontSize="md" textAlign="center">Sign in to start practicing your mental math skills!</Text>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-purple-700 via-indigo-800 to-blue-900 p-4 text-white">
+      <div className="w-full max-w-4xl space-y-8">
+        <div className="text-center space-y-4">
+          <h1 className="text-5xl font-extrabold tracking-tight">
+            <span className="inline-block transform -rotate-3 bg-yellow-400 text-blue-900 px-4 py-2 rounded-lg">
+              Quick Maths
+            </span>
+          </h1>
+          <p className="text-xl text-blue-200">
+            Sharpen Your Mind, One Equation at a Time!
+          </p>
+        </div>
 
-        <div className="flex justify-center items-center">
-      
-        <Button colorScheme="green" onClick={() => navigate('/configuration')}>
-          Guest Mode
-        </Button>
-      
-      <SignInButton>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Sign In
-        </button>
-      </SignInButton>
-    </div>
+        <Card className="bg-white/10 backdrop-blur-lg border-none">
+          <CardContent className="space-y-6 p-6">
+            <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+            
+              <Button asChild size="lg" className="bg-green-500 hover:bg-green-600 text-white cursor-pointer">
+                <SignInButton>
+                  <div className="flex items-center cursor-pointer">
+                    <Calculator className="mr-2 h-5 w-5" />
+                      Sign In
+                  </div>
+                </SignInButton>
+              </Button>
+            
+              <Button asChild size="lg" variant="outline" className="bg-transparent text-white border-white hover:bg-white/20 cursor-pointer" style={{ userSelect: 'none' }}>
+                <SignUpButton>
+                  <div className="flex items-center">
+                    <Brain className="mr-2 h-5 w-5" />
+                      Sign Up
+                  </div>
+                </SignUpButton>
+              </Button>
+              
+            
+            </div>
+            <Button asChild size="lg" className="w-full bg-yellow-400 text-blue-900 hover:bg-yellow-500">
+              <Link to="/configuration">
+                Try as Guest
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          </CardContent>
+        </Card>
 
-        
-        <Heading as="h2" size="lg" textAlign="center" mt="8">🏆 Leaderboard 🏆</Heading>
-        {renderScoresTable(scores30, 30)}
-        {renderScoresTable(scores60, 60)}
-        {renderScoresTable(scores90, 90)}
-      </Box>
+        <div className="space-y-6">
+          <h2 className="text-3xl font-bold text-center flex items-center justify-center">
+            <Trophy className="mr-2 h-8 w-8 text-yellow-400" />
+            Leaderboard
+          </h2>
+          <div className="grid gap-6 md:grid-cols-3">
+            {renderScoresTable(scores30, 30)}
+            {renderScoresTable(scores60, 60)}
+            {renderScoresTable(scores90, 90)}
+          </div>
+        </div>
+      </div>
     </div>
   );
-};
-
-export default SignInPage;
+}
